@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.harnet.coroutinesroom.R
 import com.harnet.coroutinesroom.viewmodel.MainViewModel
@@ -27,23 +27,23 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        signoutBtn.setOnClickListener { onSignout() }
+        signoutBtn.setOnClickListener { onSignOut() }
         deleteUserBtn.setOnClickListener { onDelete() }
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         observeViewModel()
     }
 
-    fun observeViewModel() {
-        viewModel.signout.observe(this, Observer {
+    private fun observeViewModel() {
+        viewModel.signout.observe(viewLifecycleOwner, Observer {
 
         })
-        viewModel.userDeleted.observe(this, Observer {
+        viewModel.userDeleted.observe(viewLifecycleOwner, Observer {
 
         })
     }
 
-    private fun onSignout() {
+    private fun onSignOut() {
         val action = MainFragmentDirections.actionGoToSignup()
         Navigation.findNavController(usernameTV).navigate(action)
     }

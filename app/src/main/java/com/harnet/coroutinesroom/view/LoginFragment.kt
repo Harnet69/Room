@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.harnet.coroutinesroom.R
 import com.harnet.coroutinesroom.viewmodel.LoginViewModel
@@ -30,16 +30,16 @@ class LoginFragment : Fragment() {
         loginBtn.setOnClickListener { onLogin(it) }
         gotoSignupBtn.setOnClickListener { onGotoSignup(it) }
 
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         observeViewModel()
     }
 
     private fun observeViewModel() {
-        viewModel.loginComplete.observe(this, Observer { isComplete ->
+        viewModel.loginComplete.observe(viewLifecycleOwner, Observer { isComplete ->
 
         })
 
-        viewModel.error.observe(this, Observer { error ->
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
 
 
         })
