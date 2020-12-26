@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -37,32 +38,40 @@ class MainFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.signout.observe(viewLifecycleOwner, Observer {
-
+            Toast.makeText(activity, "Logged out", Toast.LENGTH_SHORT).show()
+            goToSignup()
         })
+
         viewModel.userDeleted.observe(viewLifecycleOwner, Observer {
-
+            onSignOut()
         })
-    }
-
-    private fun onSignOut() {
-        val action = MainFragmentDirections.actionGoToLoginFromMain()
-        Navigation.findNavController(usernameTV).navigate(action)
     }
 
     private fun onDelete() {
-//        val action = MainFragmentDirections.actionGoToSignupFromMain()
-//        Navigation.findNavController(usernameTV).navigate(action)
-
         //prevent from crash if app is in background
         activity?.let {
             AlertDialog.Builder(it)
                 .setTitle("Delete user")
                 .setMessage("Are you sure you want to delete the user")
-                .setPositiveButton("Yes"){p0, p1 -> viewModel.onDeleteUser()}
+                .setPositiveButton("Yes") { p0, p1 -> viewModel.onDeleteUser() }
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show()
         }
+    }
+
+    private fun onSignOut() {
+        goToLogin()
+    }
+
+    private fun goToLogin() {
+        val action = MainFragmentDirections.actionGoToLoginFromMain()
+        Navigation.findNavController(signoutBtn).navigate(action)
+    }
+
+    private fun goToSignup() {
+        val action = MainFragmentDirections.actionGoToSignupFromMain()
+        Navigation.findNavController(signoutBtn).navigate(action)
     }
 
 }

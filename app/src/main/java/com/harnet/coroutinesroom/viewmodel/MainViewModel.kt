@@ -17,6 +17,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun onDeleteUser() {
         Log.i("RoomCoroutines", "onDeleteUser: ")
+        userDeleted.value = false
     }
 
 }
