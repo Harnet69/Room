@@ -49,22 +49,20 @@ class LoginFragment : Fragment() {
     private fun onLogin(v: View) {
         val username = loginUsername.text.toString()
         val password = loginPassword.text.toString()
-        if (!username.isNullOrEmpty() || !password.isNullOrEmpty()) {
-            viewModel.login(username, password)
-        } else {
+        if (username.isNullOrEmpty() || password.isNullOrEmpty()) {
             Toast.makeText(activity, "Fill all fields", Toast.LENGTH_SHORT).show()
+        } else {
+            viewModel.login(username, password)
         }
     }
 
     private fun onGotoSignup(v: View) {
-//        val action = LoginFragmentDirections.actionGoToSignupFromLogin()
-//        Navigation.findNavController(v).navigate(action)
+        val action = LoginFragmentDirections.actionGoToSignupFromLogin()
+        Navigation.findNavController(v).navigate(action)
     }
 
     private fun goToMain() {
         val action = LoginFragmentDirections.actionGoToMainFromLogin()
         Navigation.findNavController(loginUsername).navigate(action)
     }
-
-
 }
