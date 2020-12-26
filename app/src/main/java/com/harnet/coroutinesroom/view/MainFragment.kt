@@ -1,6 +1,7 @@
 package com.harnet.coroutinesroom.view
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,13 +45,24 @@ class MainFragment : Fragment() {
     }
 
     private fun onSignOut() {
-        val action = MainFragmentDirections.actionGoToSignup()
+        val action = MainFragmentDirections.actionGoToLoginFromMain()
         Navigation.findNavController(usernameTV).navigate(action)
     }
 
     private fun onDelete() {
-        val action = MainFragmentDirections.actionGoToSignup()
-        Navigation.findNavController(usernameTV).navigate(action)
+//        val action = MainFragmentDirections.actionGoToSignupFromMain()
+//        Navigation.findNavController(usernameTV).navigate(action)
+
+        //prevent from crash if app is in background
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle("Delete user")
+                .setMessage("Are you sure you want to delete the user")
+                .setPositiveButton("Yes"){p0, p1 -> viewModel.onDeleteUser()}
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show()
+        }
     }
 
 }

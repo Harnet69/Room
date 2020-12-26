@@ -46,12 +46,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun onLogin(v: View) {
-        val action = LoginFragmentDirections.actionGoToMain()
+        val action = LoginFragmentDirections.actionGoToMainFromLogin()
         Navigation.findNavController(v).navigate(action)
     }
 
     private fun onGotoSignup(v: View){
-        val action = LoginFragmentDirections.actionGoToSignup()
+        val action = LoginFragmentDirections.actionGoToSignupFromLogin()
         Navigation.findNavController(v).navigate(action)
     }
 }
