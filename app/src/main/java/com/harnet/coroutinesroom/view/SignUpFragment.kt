@@ -34,15 +34,15 @@ class SignUpFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.signupComplete.observe(viewLifecycleOwner, Observer { isComplete ->
+        viewModel.mSignupComplete.observe(viewLifecycleOwner, Observer { isComplete ->
             Toast.makeText(activity, "Sign up is complete", Toast.LENGTH_SHORT).show()
 
-            val action = SignupFragmentDirections.actionGoToMain()
-            Navigation.findNavController(v).navigate(action)
+            val action = SignUpFragmentDirections.actionGoToMain()
+            Navigation.findNavController(signupUsername).navigate(action)
         })
 
-        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-
+        viewModel.mError.observe(viewLifecycleOwner, Observer { error ->
+            Toast.makeText(activity, "Error $error", Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -59,7 +59,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun onGotoLogin(v: View) {
-        val action = SignupFragmentDirections.actionGoToLogin()
+        val action = SignUpFragmentDirections.actionGoToLogin()
         Navigation.findNavController(v).navigate(action)
     }
 
