@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.harnet.coroutinesroom.R
+import com.harnet.coroutinesroom.model.LoginState
 import com.harnet.coroutinesroom.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -29,6 +30,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        usernameTV.text = LoginState.user?.username
         signoutBtn.setOnClickListener { onSignOut() }
         deleteUserBtn.setOnClickListener { onDelete() }
 
