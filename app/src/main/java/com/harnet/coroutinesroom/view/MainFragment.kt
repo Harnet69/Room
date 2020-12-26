@@ -43,12 +43,13 @@ class MainFragment : Fragment() {
         })
 
         viewModel.userDeleted.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(activity, "User deleted", Toast.LENGTH_SHORT).show()
             goToSignup()
         })
     }
 
     private fun onDelete() {
-        //prevent from crash if app is in background
+        //the checking prevent from crash if app is in background
         activity?.let {
             AlertDialog.Builder(it)
                 .setTitle("Delete user")
