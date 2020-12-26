@@ -39,11 +39,11 @@ class MainFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.signout.observe(viewLifecycleOwner, Observer {
             Toast.makeText(activity, "Logged out", Toast.LENGTH_SHORT).show()
-            goToSignup()
+            goToLogin()
         })
 
         viewModel.userDeleted.observe(viewLifecycleOwner, Observer {
-            onSignOut()
+            goToSignup()
         })
     }
 
@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
     }
 
     private fun onSignOut() {
-        goToLogin()
+        viewModel.onSignout()
     }
 
     private fun goToLogin() {

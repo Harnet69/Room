@@ -12,7 +12,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val signout = MutableLiveData<Boolean>()
 
     fun onSignout() {
-
+        signout.value = true
     }
 
     fun onDeleteUser() {
