@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,22 +37,34 @@ class LoginFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.loginComplete.observe(viewLifecycleOwner, Observer { isComplete ->
-
+            Toast.makeText(activity, "You logged in", Toast.LENGTH_SHORT).show()
+            goToMain()
         })
 
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-
-
+            Toast.makeText(activity, error, Toast.LENGTH_SHORT).show()
         })
     }
 
     private fun onLogin(v: View) {
-        val action = LoginFragmentDirections.actionGoToMainFromLogin()
-        Navigation.findNavController(v).navigate(action)
+        val username = loginUsername.text.toString()
+        val password = loginPassword.text.toString()
+        if (!username.isNullOrEmpty() || !password.isNullOrEmpty()) {
+            viewModel.login(username, password)
+        } else {
+            Toast.makeText(activity, "Fill all fields", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun onGotoSignup(v: View){
-        val action = LoginFragmentDirections.actionGoToSignupFromLogin()
-        Navigation.findNavController(v).navigate(action)
+    private fun onGotoSignup(v: View) {
+//        val action = LoginFragmentDirections.actionGoToSignupFromLogin()
+//        Navigation.findNavController(v).navigate(action)
     }
+
+    private fun goToMain() {
+        val action = LoginFragmentDirections.actionGoToMainFromLogin()
+        Navigation.findNavController(loginUsername).navigate(action)
+    }
+
+
 }
